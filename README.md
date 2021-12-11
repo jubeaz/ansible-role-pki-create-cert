@@ -23,6 +23,7 @@ must be defined  at call time
     _owner_user_var:
     _owner_group_var:
     _csr_template_name:
+    _ca_template_name:
 
 
 Dependencies

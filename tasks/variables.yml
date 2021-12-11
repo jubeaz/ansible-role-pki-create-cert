@@ -19,7 +19,7 @@
     _ca_new_certs_dir: "{{ hostvars[_ca_name].ca_base_dir }}/{{ hostvars[_ca_name].ca_new_certs_dir }}"
 - name: Set csr_template
   set_fact:
-    _ca_template_model: "{{ hostvars[_ca_name]['ca_templates'][_csr_template_name] }}"
+    _ca_template_model: "{{ hostvars[_ca_name]['ca_templates'][_ca_template_name] }}"
 
 - name: Set ca_template_params
   set_fact:
@@ -27,5 +27,5 @@
 
 - name: Set csr_template_params
   set_fact:
-    _csr_template_params: "{{ _ca_templates_params[_ca_template_model] }}"
+    _ca_template_params: "{{ _ca_templates_params[_ca_template_model] }}"
 

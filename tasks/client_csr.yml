@@ -2,7 +2,7 @@
 - name: Create PK
   openssl_privatekey:
     path: "{{ vars[_key_path_var] }}/{{ vars[_key_file_var] }}"
-    size: "{{ _csr_template_params['default_bits'] }}"
+    size: "{{ _ca_template_params['default_bits'] }}"
     state: present
     owner: "{{ vars[_owner_user_var] }}"
     group: "{{ vars[_owner_group_var] }}"

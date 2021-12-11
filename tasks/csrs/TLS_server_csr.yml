@@ -7,4 +7,4 @@
     subject_alt_name:
       - "DNS:{{ inventory_hostname }}" 
       - "IP:127.0.0.1"
-    digest: "{{ _csr_template_params.default_md }}"
+    digest: "{{ _ca_template_params.default_md }}"

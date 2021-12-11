@@ -24,7 +24,7 @@
       - -passin
       - "pass:{{ ca_key_password }}"
       - -config
-      - "{{ ca_base_dir }}/{{ ca_cnf_dir }}/{{ ca_cnf_ca_dir }}/ca-{{ _csr_template_name }}.cnf"
+      - "{{ ca_base_dir }}/{{ ca_cnf_dir }}/{{ ca_cnf_ca_dir }}/ca-{{ _ca_template_name }}.cnf"
       - -in
       - "{{ _ca_csr_dir }}/{{ item }}"
       - -out
