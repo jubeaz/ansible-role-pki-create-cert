@@ -1,0 +1,31 @@
+---
+- name: Include OS-specific variables (Ubuntu)
+  include_vars: "ubuntu.yml"
+  when: ansible_distribution == "Ubuntu"
+
+- name: Include OS-specific variables (Archlinux)
+  include_vars: "arch.yml"
+  when: ansible_distribution == "Archlinux"
+
+- name: Include common variables
+  include_vars: "common.yml"
+
+- name: Set ca csr_dir
+  set_fact:
+    _ca_csr_dir: "{{ hostvars[_ca_name].ca_base_dir }}/{{ hostvars[_ca_name].ca_csr_dir }}"
+
+- name: Set ca new_certs_dir
+  set_fact:
+    _ca_new_certs_dir: "{{ hostvars[_ca_name].ca_base_dir }}/{{ hostvars[_ca_name].ca_new_certs_dir }}"
+- name: Set csr_template
+  set_fact:
+    _ca_template_model: "{{ hostvars[_ca_name]['ca_templates'][_csr_template_name] }}"
+
+- name: Set ca_template_params
+  set_fact:
+    _ca_templates_params: "{{ hostvars[_ca_name].ca_templates_params }}"
+
+- name: Set csr_template_params
+  set_fact:
+    _csr_template_params: "{{ _ca_templates_params[_ca_template_model] }}"
+

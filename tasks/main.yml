@@ -1,0 +1,27 @@
+---
+- include_tasks: variables.yml
+  when: (inventory_hostname in groups[_client_group_name]) or (inventory_hostname == _ca_name)
+
+  
+- include_tasks: asserts.yml
+  when: inventory_hostname in groups[_client_group_name]
+
+  #- include_tasks: ubuntu.yml
+  #  when: ansible_distribution == "Ubuntu"
+  #- include_tasks: arch.yml
+  
+  #  - name: Set ca inventory name
+  #  set_fact:
+  #    _ca_name: "{{ groups[_ca_group_name][0] }}"
+
+- name: Include client_csr
+  include_tasks: client_csr.yml
+  when: inventory_hostname in groups[_client_group_name]
+
+- name:
+  include_tasks: ca_sign.yml
+  when: inventory_hostname == _ca_name
+
+- name:
+  include_tasks: client_get_signed.yml
+  when: inventory_hostname in groups[_client_group_name]

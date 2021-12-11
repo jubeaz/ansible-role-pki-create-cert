@@ -1,0 +1,33 @@
+---
+- name: Set ca inventory name
+  set_fact:
+    _ca_name: "{{ groups[_ca_group_name][0] }}"
+
+- name: Set ca csr_dir
+  set_fact:
+    _ca_csr_dir: "{{ hostvars[_ca_name]['ca_base_dir'] }}/{{ hostvars[_ca_name]['ca_csr_dir'] }}"
+
+- name: Set ca new_certs_dir
+  set_fact:
+    _ca_new_certs_dir: "{{ hostvars[_ca_name]['ca_base_dir'] }}/{{ hostvars[_ca_name]['ca_new_certs_dir'] }}"
+- name: Set csr_template
+  set_fact:
+    _ca_template_model: "{{ hostvars[_ca_name]['ca_templates'][_csr_template_name] }}"
+- name: Set ca_template_params
+  set_fact:
+    _ca_templates_params: "{{ hostvars[_ca_name]['ca_templates_params'] }}"
+- name: Set csr_template_params
+  set_fact:
+    _csr_template_params: "{{ _ca_templates_params[_ca_template_model] }}"
+
+- name:
+  include_tasks: _client_csr.yml
+  when: inventory_hostname in groups[_client_group_name]
+
+- name:
+  include_tasks: _ca_sign.yml
+  when: inventory_hostname == _ca_name
+
+- name:
+  include_tasks: _client_get_signed.yml
+  when: inventory_hostname in groups[_client_group_name]
